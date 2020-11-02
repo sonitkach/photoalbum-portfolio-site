@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Post
 from .forms import PostForm
+from .filters import PostFilter
+
 
 def post (request,pk):
     post = Post.objects.get(id=pk)
@@ -12,7 +14,9 @@ def post (request,pk):
 
 def posts(request):
     posts = Post.objects.filter(active=True)
-    context = {'posts':posts}
+    myFilter = PostFilter(request.GET, queryset=posts)
+    posts = myFilter.qs
+    context = {'posts':posts, 'myFilter':myFilter}
     return render(request, 'photoalbum_site/posts.html', context)
 
 def home(request):

@@ -1,10 +1,27 @@
 {% extends 'photoalbum_site/main.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
 
+<style type="text/css">
+	#id_tags {
+		max-height: 100px;
+        overflow-y: scroll;
+        border: 1px solid #888;
+        padding: 5px;
+        border-radius: 5px;
+	}
+</style>
+
 <div class="main-container">
     <h1> Posts </h1>
+
+	<form method="GET">
+		{{myFilter.form|cispy }}
+		<input class="btn btn-ptimary" type="submit" value="search">
+	</form>
+
     <div class="post-wrapper">
 		{% for post in posts %}
 				<div>
