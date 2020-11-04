@@ -7,6 +7,9 @@ from .models import Post
 from .forms import PostForm
 from .filters import PostFilter
 
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 
 def post (request,pk):
     post = Post.objects.get(id=pk)
@@ -76,3 +79,25 @@ def deletePost(request, pk):
         return redirect('posts')
     context = {'item':post}
     return render(request, 'photoalbum_site/delete.html', context)
+
+def sendEmail(request):
+
+	if request.method == 'POST':
+
+		template = render_to_string('photoalbum_site/email_template.html',
+                                    {'name':request.POST['name'],
+                                     'email':request.POST['email'],
+                                     'message':request.POST['message'],
+                                     })
+
+		email = EmailMessage(
+			request.POST['subject'],
+			template,
+			settings.EMAIL_HOST_USER,
+			['sonitkach@gmail.com']
+			)
+
+		email.fail_silently=False
+		email.send()
+
+	return render(request, 'photoalbum_site/email_sent.html')
