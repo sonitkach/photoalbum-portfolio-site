@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'photoalbum_site',
     'crispy_forms',
     'django_filters',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -143,3 +145,13 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sonitkach@gmail.com'
 EMAIL_HOST_PASSWORD = 'sawzcxidczishnuf'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
-
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Tag (models.Model):
     name = models.CharField(max_length=100)
@@ -13,7 +14,7 @@ class Post (models.Model):
     headline = models.CharField(max_length=100)
     subheadline = models.CharField(max_length=200, null=True, blank=True)
     thumbnail = models.ImageField(null=True, blank=True, upload_to="images", default="/images/placeholder.png")
-    body = models.TextField(null=True, blank=True)
+    body = RichTextUploadingField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
     featured = models.BooleanField(null=True)
