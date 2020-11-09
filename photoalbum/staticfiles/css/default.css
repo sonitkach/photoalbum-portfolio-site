@@ -440,3 +440,10 @@ h6 { font-size: 16px;}
 	}
 
 }
+
+.carousel-img {
+  height: 300px;
+  width: auto;
+  position: relative;
+  overflow: hidden;
+}

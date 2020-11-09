@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Post
+from .models import Post, PostImage
 from .forms import PostForm
 from .filters import PostFilter
 
@@ -13,7 +13,8 @@ from django.template.loader import render_to_string
 
 def post (request,slug):
     post = Post.objects.get(slug=slug)
-    context = {'post': post}
+    photos = PostImage.objects.filter(post=post)
+    context = {'post': post, 'photos':photos}
     return render(request, 'photoalbum_site/post.html', context)
 
 def posts(request):
@@ -46,7 +47,7 @@ def profile (request):
 
 @login_required(login_url='home')
 def createPost(request):
-    form = PostForm
+    form = PostForm()
 
     if request.method=='POST':
         form=PostForm(request.POST, request.FILES)

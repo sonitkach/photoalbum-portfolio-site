@@ -21,6 +21,7 @@ class Post (models.Model):
     tags = models.ManyToManyField(Tag, null=True)
     slug = models.SlugField(null=True, blank=True)
 
+
     def __str__(self):
         return self.headline
 
@@ -37,3 +38,11 @@ class Post (models.Model):
                 has_slug = Post.objects.filter(slug=slug).exists()
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to="images")
+
+    def __str__(self):
+        return self.post.headline
