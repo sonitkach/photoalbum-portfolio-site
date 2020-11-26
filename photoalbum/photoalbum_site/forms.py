@@ -11,7 +11,13 @@ class PostForm(ModelForm):
 
         widgets = {
             'tags': forms.CheckboxSelectMultiple,
+            'featured': forms.CheckboxInput,
         }
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)  # Call to ModelForm constructor
+        self.fields['tags'].widget.attrs['height'] = 100
+        #self.fields['long_desc'].widget.attrs['rows'] = 20
 
 
 """class PostImageForm(ModelForm):
